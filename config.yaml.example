@@ -1,0 +1,97 @@
+# OneRuler Benchmark Configuration Example
+# Copy this to config.yaml and customize for your needs
+
+# LLM Provider Configuration
+providers:
+  openai:
+    api_key: ${OPENAI_API_KEY}  # Or set directly
+    models:
+      - gpt-4-turbo
+      - gpt-3.5-turbo
+
+  anthropic:
+    api_key: ${ANTHROPIC_API_KEY}
+    models:
+      - claude-3-5-sonnet-20241022
+      - claude-3-opus-20240229
+
+  google:
+    api_key: ${GOOGLE_API_KEY}
+    models:
+      - gemini-1.5-flash
+      - gemini-1.5-pro
+
+  qwen:
+    base_url: http://localhost:8000/v1
+    api_key: dummy  # For local deployments
+    models:
+      - qwen2.5-72b-instruct
+
+# Benchmark Configuration
+benchmark:
+  # Languages to test (ISO 639-1 codes)
+  languages:
+    - en  # English
+    - zh  # Chinese
+    - fr  # French
+    - es  # Spanish
+    # Add more as needed
+
+  # Context lengths to test (in tokens)
+  context_lengths:
+    - 8000
+    - 32000
+    - 64000
+    - 128000
+
+  # Tasks to run
+  tasks:
+    - s-niah       # Single NIAH
+    - mk-niah      # Multi-Key NIAH
+    - mv-niah      # Multi-Value NIAH
+    - mq-niah      # Multi-Query NIAH
+    - none-niah    # None NIAH
+    - cwe-easy     # Common Word Extraction (Easy)
+    - cwe-hard     # Common Word Extraction (Hard)
+
+  # Number of examples per task/length combination
+  num_examples: 50
+
+  # Maximum tokens for model responses
+  max_tokens: 1000
+
+  # Output directory for results
+  output_dir: results
+
+  # Random seed for reproducibility
+  random_seed: 42
+
+# Performance Settings
+performance:
+  # Rate limiting (requests per minute)
+  rate_limit: 60
+
+  # Retry configuration
+  max_retries: 3
+  retry_delay: 2  # seconds
+
+  # Parallel execution
+  parallel: false
+  max_workers: 4
+
+# Evaluation Settings
+evaluation:
+  # Save individual example results
+  save_examples: true
+
+  # Save aggregate statistics
+  save_aggregate: true
+
+  # Generate visualizations
+  generate_plots: false
+
+  # Export format
+  export_formats:
+    - json
+    # - csv
+    # - html
